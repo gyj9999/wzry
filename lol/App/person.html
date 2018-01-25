@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+			
+	<body>
+		<br /><br /><br /><span id="account" class="mui-icon mui-icon-qq">
+			个人信息
+		</span><br /><br />
+<div class="mui-card">
+	<div class="mui-card-header">用户名</div>
+	<div class="mui-card-footer" id="user">页脚</div>
+</div>
+<div class="mui-card">
+	<div class="mui-card-header">密码</div>
+	<div class="mui-card-footer" id="pwd">页脚</div>
+</div>
+<div class="mui-card">
+	<div class="mui-card-header">内容</div>
+	<div class="mui-card-footer">此处省略一万字</div>
+</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+				var username = plus.webview.currentWebview().username;
+				var pwd = plus.webview.currentWebview().pwd;
+				console.log(username);
+				console.log(pwd);
+				document.getElementById("user").innerHTML=username;
+				document.getElementById("pwd").innerHTML=pwd;
+			});
+		</script>
+	</body>
+
+</html>

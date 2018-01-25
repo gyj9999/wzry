@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+		    <div class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+		            <ul class="mui-table-view">
+		                
+		            </ul>
+		        </div>
+		    </div>
+		    
+		    
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/ip.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+				mui.ajax('http://'+ip+'/lol/app.php',{
+					data:{
+						c:'index',
+						a:'index'
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(data){
+						var heros = data.data;
+						var lis = createFragment(heros);
+						mui(".mui-table-view")[0].appendChild(lis);
+					},
+					error:function(xhr,type,errorThrown){
+						console.log(type);
+						console.log(2);
+					}
+				});
+			});
+						var createFragment = function(heros) {
+						var fragment = document.createDocumentFragment();
+						var li;
+						m = heros.length;
+						for( var i=0; i<m; i++){
+							li = document.createElement('li');
+							li.classList.add('mui-table-view-cell','mui-media');
+							var a = document.createElement("a");
+							a.setAttribute("href","javascript::;");
+							a.setAttribute("heroid",heros[i].id)
+							var img = document.createElement("img");
+							img.classList.add("mui-media-object","mui-pull-left");
+							img.setAttribute("src",heros[i].default_face);
+							var div = document.createElement("div");
+							div.classList.add("mui-media-body");
+							div.innerHTML = heros[i].Hero_name+'<p class="mui-ellipsis">'+heros[i].Hero_title+'</p>';
+							a.appendChild(img);
+							a.appendChild(div);
+							li.appendChild(a);
+							fragment.appendChild(li);
+						}
+						return fragment;
+					};
+					mui(".mui-table-view").on("tap","a",function(){
+						var hid = this.getAttribute("heroid");
+						mui.openWindow({
+						    url:"details.html",
+						    id:"details.html",
+	
+						    extras:{
+						    	heroid: hid
+						    }
+					    })
+					});
+		</script>
+	</body>
+
+</html>
